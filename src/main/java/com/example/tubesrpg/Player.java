@@ -1,10 +1,10 @@
 package com.example.tubesrpg;
 
 public class Player {
-    int strength = 50;
-    int health = 50;
-    Animal_Meat animal_Meat = new Animal_Meat();
-    Medicine_Flower medicine_Flower = new Medicine_Flower();
+    private int strength = 50;
+    private int health = 50;
+    private Animal_Meat animal_Meat = new Animal_Meat();
+    private Medicine_Flower medicine_Flower = new Medicine_Flower();
     
     public Player(){
         
@@ -22,6 +22,10 @@ public class Player {
             health = health + animal_Meat.addStrength();
             
         }
+        return health;
+    }
+
+    public int getHealth(){
         return health;
     }
 }

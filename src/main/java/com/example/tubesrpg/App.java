@@ -11,19 +11,15 @@ public class App
     public static void main( String[] args )
     {
         int enemy_health = 90;
-        int enemy_stregth = 70;
+        int enemy_stregth = 50;
 
         Player player = new Player();
         Attack magic = new Magic();
         Attack sword = new Sword();
-        Heal flower = new Medicine_Flower();
-        Heal meat = new Animal_Meat();
-
+        
         Scanner action = new Scanner(System.in);
-        Scanner action_makan = new Scanner(System.in);
 
-        do{
-            String input;
+        String input;
 
             System.out.println("Pahlawan?");
             action.nextLine();
@@ -46,7 +42,7 @@ public class App
             if(input.equals("Ya")){
                 System.out.println("Baiklah! Izinkan saya memegang pergelangan tangan Anda.");
                 action.nextLine();
-                System.out.println("Saat ini, anda memiliki poin darah sebanyak " + player.health + ". Seperti yang saya bilang tadi, hanya setengahnya saja");
+                System.out.println("Saat ini, anda memiliki poin darah sebanyak " + player.getHealth() + ". Seperti yang saya bilang tadi, hanya setengahnya saja");
                 action.nextLine();
                 System.out.println("Hm, saya juga ragu dengan poin darah segini akan cukup untuk melawan naga api");
                 System.out.println("Apakah Anda ingin menambahkan poin darah Anda? Kita ada bunga obat dan daging hewan yang kemarin kita sudah sembelih");
@@ -60,23 +56,17 @@ public class App
                     System.out.println("Bagaimana, Pahlawan? Apakah enak?");
                     action.nextLine();
                     if(input.equals("Bunga obat")){
-                        System.out.println("Syukurlah kalau Anda menyukainya! Darah anda bertambah sebanyak " + player.medicine_Flower.addStrength());
-                        System.out.println("Sehingga saat ini, poin darah anda sebanyak " + player.health);
-                        action.nextLine();
-                        System.out.println("Dengan darah segini saya rasa cukup untuk segera melawan naga api");
-                        action.nextLine();
-                        System.out.println("Sekali lagi, Anda tidak perlu berterima kasih seperti itu. Itu adalah kewajiban saya sebagai penjaga anda!");
+                        System.out.println("Syukurlah kalau Anda menyukainya! Saat ini, poin darah anda sebanyak " + player.getHealth());
                         action.nextLine();
                     }
                     if(input.equals("Daging hewan")){
-                        System.out.println("Syukurlah kalau Anda menyukainya! Darah anda bertambah sebanyak " +player.animal_Meat.addStrength());
-                        System.out.println("Sehingga saat ini, poin darah anda sebanyak " + player.health);
+                        System.out.println("Syukurlah kalau Anda menyukainya! Saat ini, poin darah anda sebanyak " + player.getHealth());
                         action.nextLine();
-                        System.out.println("Dengan darah segini saya rasa cukup untuk segera melawan naga api");
-                        action.nextLine();
-                        System.out.println("Sekali lagi, Anda tidak perlu berterima kasih seperti itu. Itu adalah kewajiban saya sebagai penjaga anda!");
-                        action.nextLine();
-                    } 
+                    }
+                    System.out.println("Dengan darah segini saya rasa cukup untuk segera melawan naga api");
+                    action.nextLine();
+                    System.out.println("Sekali lagi, Anda tidak perlu berterima kasih seperti itu. Itu adalah kewajiban saya sebagai penjaga anda!");
+                    action.nextLine(); 
                 } 
             } else {
                 System.out.println("Baiklah. Saya percaya kepada kekuatan Pahlawan");
@@ -104,9 +94,22 @@ public class App
                 if(input.equals("Syok listrik")){
                     System.out.println("\033[3mDRRRRTTTTTT!!!\033[0m");
                     action.nextLine();
-                    
+                    System.out.println("Yay! Sihir listrik Anda tepat mengenai badannya! Pahlawan benar-benar ahli sihir yang hebat!");
                 }
             }
+            if(input.equals("Pedang")){
+                System.out.println("Baiklah, Excalibur atau Black excalibur?");
+                input = action.nextLine();
+                enemy_health = enemy_health - sword.Attack(input);
+                if(input.equals("Excalibur")){
+                    System.out.println("\033[3mZREEEETTT!!!\033[0m");
+                }
+                if(input.equals("Black excalibur")){
+                    System.out.println("\033[3mZIIINGGG!!!\033[0m");
+                }
+            }
+        do{
+            
         } while(enemy_health > 0);
     }
 }

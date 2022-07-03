@@ -15,14 +15,18 @@ public class Player {
     }
     
     public int getHealth(String food){
-        if(food.equals("Bunga obat")){
+        if(food.equalsIgnoreCase("Bunga obat")){
             health = health + medicine_Flower.addStrength();
         }
-        if(food.equals("Daging hewan")){
+        if(food.equalsIgnoreCase("Daging hewan")){
             health = health + animal_Meat.addStrength();
             
         }
         return health;
+    }
+
+    public void damage(int damage){
+        health = health - damage;
     }
 
     public int getHealth(){

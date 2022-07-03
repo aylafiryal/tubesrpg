@@ -11,7 +11,7 @@ public class App
     public static void main( String[] args )
     {
         int enemy_health = 90;
-        int enemy_stregth = 50;
+        int enemy_stregth = 20;
 
         Player player = new Player();
         Attack magic = new Magic();
@@ -39,27 +39,27 @@ public class App
             System.out.println("Tetapi pahlawan, sihir saya tidak semanjur itu. Saat ini anda mungkin hanya memiliki setengah darah saja");
             System.out.println("Apakah anda ingin tahu seberapa banyak darah tersisa dalam tubuh anda?");
             input = action.nextLine();
-            if(input.equals("Ya")){
+            if(input.equalsIgnoreCase("Ya")){
                 System.out.println("Baiklah! Izinkan saya memegang pergelangan tangan Anda.");
                 action.nextLine();
                 System.out.println("Saat ini, anda memiliki poin darah sebanyak " + player.getHealth() + ". Seperti yang saya bilang tadi, hanya setengahnya saja");
                 action.nextLine();
                 System.out.println("Hm, saya juga ragu dengan poin darah segini akan cukup untuk melawan naga api");
-                System.out.println("Apakah Anda ingin menambahkan poin darah Anda? Kita ada bunga obat dan daging hewan yang kemarin kita sudah sembelih");
+                System.out.println("Apakah Anda ingin menambahkan poin darah Anda?");
                 input = action.nextLine();
-                if(input.equals("Ya")){
-                    System.out.println("Kalau begitu, makanan apa yang hendak anda makan?");
+                if(input.equalsIgnoreCase("Ya")){
+                    System.out.println("Kalau begitu, makanan apa yang hendak anda makan?  Kita ada \033[1mbunga obat\033[0m dan \033[1mdaging hewan\033[0m yang kemarin kita sudah sembelih");
                     input = action.nextLine();
                     player.getHealth(input);
                     System.out.println("Baiklah, akan saya siapkan, Yang Mulia!");
                     action.nextLine();
                     System.out.println("Bagaimana, Pahlawan? Apakah enak?");
                     action.nextLine();
-                    if(input.equals("Bunga obat")){
+                    if(input.equalsIgnoreCase("Bunga obat")){
                         System.out.println("Syukurlah kalau Anda menyukainya! Saat ini, poin darah anda sebanyak " + player.getHealth());
                         action.nextLine();
                     }
-                    if(input.equals("Daging hewan")){
+                    if(input.equalsIgnoreCase("Daging hewan")){
                         System.out.println("Syukurlah kalau Anda menyukainya! Saat ini, poin darah anda sebanyak " + player.getHealth());
                         action.nextLine();
                     }
@@ -67,6 +67,9 @@ public class App
                     action.nextLine();
                     System.out.println("Sekali lagi, Anda tidak perlu berterima kasih seperti itu. Itu adalah kewajiban saya sebagai penjaga anda!");
                     action.nextLine(); 
+                } else {
+                    System.out.println("Baiklah. Saya percaya kepada kekuatan Pahlawan");
+                    action.nextLine();
                 } 
             } else {
                 System.out.println("Baiklah. Saya percaya kepada kekuatan Pahlawan");
@@ -74,14 +77,15 @@ public class App
             }
             System.out.println("Naga api melihat ke arah kita, Pahlawan!");
             action.nextLine();
-            System.out.println("Cepat, kita harus menyerangnya! Sihir atau pedang?");
+            System.out.println("Cepat, kita harus menyerangnya! \033[1mSihir\033[0m atau \033[1mpedang\033[0m?");
+            player.damage(enemy_stregth);
             input = action.nextLine();
-            if(input.equals("Sihir")){
+            if(input.equalsIgnoreCase("Sihir")){
                 System.out.println("Pilihan yang bagus!");
-                System.out.println("Teleportasi atau syok listrik?");
+                System.out.println("\033[1mTeleportasi\033[0m atau \033[1msyok listrik\033[0m?");
                 input = action.nextLine();
                 enemy_health = enemy_health - magic.Attack(input);
-                if(input.equals("Teleportasi")){
+                if(input.equalsIgnoreCase("Teleportasi")){
                     System.out.println("\033[3mZIIINGGG!!!\033[0m");
                     action.nextLine();
                     System.out.println("Api naganya melesat, Pahlawan! Cepat, serangan balik!");
@@ -91,26 +95,90 @@ public class App
                     System.out.println("Yay! Sihir listrik Anda tepat mengenai badannya! Pahlawan benar-benar ahli sihir yang hebat!");
                     action.nextLine();
                 }
-                if(input.equals("Syok listrik")){
+                if(input.equalsIgnoreCase("Syok listrik")){
                     System.out.println("\033[3mDRRRRTTTTTT!!!\033[0m");
                     action.nextLine();
                     System.out.println("Yay! Sihir listrik Anda tepat mengenai badannya! Pahlawan benar-benar ahli sihir yang hebat!");
                 }
             }
-            if(input.equals("Pedang")){
-                System.out.println("Baiklah, Excalibur atau Black excalibur?");
+            if(input.equalsIgnoreCase("Pedang")){
+                System.out.println("Baiklah,\033[1mExcalibur\033[0m atau \033[1mBlack excalibur\033[0m?");
                 input = action.nextLine();
                 enemy_health = enemy_health - sword.Attack(input);
-                if(input.equals("Excalibur")){
+                if(input.equalsIgnoreCase("Excalibur")){
                     System.out.println("\033[3mZREEEETTT!!!\033[0m");
                 }
-                if(input.equals("Black excalibur")){
+                if(input.equalsIgnoreCase("Black excalibur")){
                     System.out.println("\033[3mZIIINGGG!!!\033[0m");
                 }
+                System.out.println("HA! Kita mengenai perutnya pahlawan!");
             }
-        do{
+        
+        if(enemy_health > 0){
+            for(int i = 0; i < enemy_health; i++){
+                System.out.println("Ayo kita serang lagi dia pahlawan! \033[1mSihir\033[0m atau \033[1mpedang\033[0m?");
+                player.damage(enemy_stregth);
+                input = action.nextLine();
+                if(input.equalsIgnoreCase("Sihir")){
+                    System.out.println("\033[1mTeleportasi\033[0m atau \033[1msyok listrik\033[0m?");
+                    input = action.nextLine();
+                    enemy_health = enemy_health - magic.Attack(input);
+                    if(input.equalsIgnoreCase("Teleportasi")){
+                        System.out.println("\033[3mZIIINGGG!!!\033[0m");
+                        action.nextLine();
+                        System.out.println("Api naganya melesat, Pahlawan! Cepat, serangan balik!");
+                        action.nextLine();
+                        System.out.println("\033[3mDRRRRTTTTTT!!!\033[0m");
+                        enemy_health = enemy_health - magic.Attack("Syok listrik");
+                        System.out.println("Yay! Sihir listrik Anda tepat mengenai badannya! Pahlawan benar-benar ahli sihir yang hebat!");
+                        action.nextLine();
+                    }
+                    if(input.equalsIgnoreCase("Syok listrik")){
+                        System.out.println("\033[3mDRRRRTTTTTT!!!\033[0m");
+                        action.nextLine();
+                        System.out.println("Yay! Sihir listrik Anda tepat mengenai badannya! Pahlawan benar-benar ahli sihir yang hebat!");
+                        action.nextLine();
+                    }
+                }
+                if(input.equalsIgnoreCase("Pedang")){
+                    System.out.println("Baiklah,\033[1mExcalibur\033[0m atau \033[1mBlack excalibur\033[0m?");
+                    input = action.nextLine();
+                    enemy_health = enemy_health - sword.Attack(input);
+                    if(input.equalsIgnoreCase("Excalibur")){
+                        System.out.println("\033[3mZREEEETTT!!!\033[0m");
+                        action.nextLine();
+                    }
+                    if(input.equalsIgnoreCase("Black excalibur")){
+                        System.out.println("\033[3mZIIINGGG!!!\033[0m");
+                        action.nextLine();
+                    }
+                    System.out.println("HA! Kita mengenai badannya lagi pahlawan!!");
+                    action.nextLine();
+                }
+            }
             
-        } while(enemy_health > 0);
+            // do {
+                
+            //     }
+            // } while(enemy_health != 0 ^ player.getHealth() != 0);
+        }
+
+        if(player.getHealth() < 0 /*&& enemy_health > 0*/){
+            System.out.println("Tunggu, PAHLAWAN!");
+            action.nextLine();
+            System.out.println("PAHLAWAN!!");
+            action.nextLine();
+            System.out.println("GAME OVER");
+        }
+
+        if(player.getHealth() > 0 /*&& enemy_health < 0*/){
+            System.out.println("Terima kasih pahlawan, anda sudah menaklukan naga api itu!");
+            action.nextLine();
+            System.out.println("Entah apa yang akan terjadi padaku jika Pahlawan benar-benar gugur di awal pertarungan");
+            action.nextLine();
+            System.out.println("Ayo, Yang Mulia! Kita lanjutkan perjalanan kita!");
+            action.nextLine();
+        }
     }
 }
 

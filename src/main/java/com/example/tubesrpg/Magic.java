@@ -12,10 +12,10 @@ public class Magic extends Attack {
 
     @Override
     public int Attack(String spell){
-        if(spell.equals("Teleportasi")){
+        if(spell.equalsIgnoreCase("Teleportasi")){
             damage = damage + teleport.getPoint_damage();
         }
-        if(spell.equals("Syok listrik")){
+        if(spell.equalsIgnoreCase("Syok listrik")){
             damage = damage + electroshock.getPoint_damage();
         }
         return damage;
